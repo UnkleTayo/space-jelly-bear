@@ -7,13 +7,12 @@ import Layout from '@components/Layout';
 import Container from '@components/Container';
 import Button from '@components/Button';
 
-// import products from '@data/products';
+import products from '@data/products';
 
 import styles from '@styles/Page.module.scss';
-import Image from 'next/image';
 
 export default function Home({ home, products }) {
-  const { heroLink, heroText, heroTitle, heroBackground } = home;
+  const { heroTitle, heroText, heroLink, heroBackground } = home;
   return (
     <Layout>
       <Head>
@@ -31,7 +30,7 @@ export default function Home({ home, products }) {
                 <h2>{heroTitle}</h2>
                 <p>{heroText}</p>
               </div>
-              <Image
+              <img
                 className={styles.heroImage}
                 width={heroBackground.width}
                 height={heroBackground.height}
@@ -48,7 +47,7 @@ export default function Home({ home, products }) {
           {products.map((product) => {
             return (
               <li key={product.slug}>
-                <Link href={product.slug}>
+                <Link href={`/products/${product.slug}`}>
                   <a>
                     <div className={styles.productImage}>
                       <img
@@ -84,25 +83,19 @@ export async function getStaticProps() {
     query: gql`
       query PageHome {
         page(where: { slug: "home" }) {
+          id
           heroLink
           heroText
           heroTitle
-          id
           name
           slug
-          heroBackground {
-            height
-            width
-            url
-          }
+          heroBackground
         }
-
         products(first: 4) {
-          image
-          id
           name
           price
           slug
+          image
         }
       }
     `,
@@ -110,6 +103,7 @@ export async function getStaticProps() {
 
   const home = data.data.page;
   const products = data.data.products;
+
   return {
     props: {
       home,
