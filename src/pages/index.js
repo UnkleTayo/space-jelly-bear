@@ -7,12 +7,12 @@ import Layout from '@components/Layout';
 import Container from '@components/Container';
 import Button from '@components/Button';
 
-import products from '@data/products';
+// import products from '@data/products';
 
 import styles from '@styles/Page.module.scss';
 import Image from 'next/image';
 
-export default function Home({ home }) {
+export default function Home({ home, products }) {
   const { heroLink, heroText, heroTitle, heroBackground } = home;
   return (
     <Layout>
@@ -45,16 +45,16 @@ export default function Home({ home }) {
         <h2 className={styles.heading}>Featured Gear</h2>
 
         <ul className={styles.products}>
-          {products.slice(0, 4).map((product) => {
+          {products.map((product) => {
             return (
-              <li key={product.id}>
-                <Link href="#">
+              <li key={product.slug}>
+                <Link href={product.slug}>
                   <a>
                     <div className={styles.productImage}>
                       <img
-                        width="500"
-                        height="500"
-                        src={product.image}
+                        width={product.image.width}
+                        height={product.image.height}
+                        src={product.image.url}
                         alt=""
                       />
                     </div>
@@ -96,14 +96,24 @@ export async function getStaticProps() {
             url
           }
         }
+
+        products(first: 4) {
+          image
+          id
+          name
+          price
+          slug
+        }
       }
     `,
   });
 
   const home = data.data.page;
+  const products = data.data.products;
   return {
     props: {
       home,
+      products,
     },
   };
 }
