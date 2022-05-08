@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { FaShoppingCart } from 'react-icons/fa';
 import { useSnipcart } from 'use-snipcart';
+import { FaShoppingCart } from 'react-icons/fa';
 
 import Container from '@components/Container';
 
@@ -18,18 +18,18 @@ const Header = () => {
         </p>
         <ul className={styles.headerLinks}>
           <li>
-            <Link href="#">
-              <a>Link</a>
+            <Link href="/categories/apparel">
+              <a>Apparel</a>
             </Link>
           </li>
           <li>
-            <Link href="#">
-              <a>Link</a>
+            <Link href="/categories/accessories">
+              <a>Accessories</a>
             </Link>
           </li>
           <li>
-            <Link href="#">
-              <a>Link</a>
+            <Link href="/stores">
+              <a>Find a Store</a>
             </Link>
           </li>
         </ul>
