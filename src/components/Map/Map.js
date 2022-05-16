@@ -10,8 +10,6 @@ import iconMarkerShadow from 'leaflet/dist/images/marker-shadow.png';
 
 const { MapConsumer, MapContainer } = ReactLeaflet;
 
-const position = [51.505, -0.09];
-
 const Map = ({ children, className, ...rest }) => {
   let mapClassName = styles.map;
 
@@ -30,7 +28,11 @@ const Map = ({ children, className, ...rest }) => {
 
   return (
     <MapContainer className={mapClassName} {...rest}>
-      <MapConsumer>{(map) => children(ReactLeaflet, map)}</MapConsumer>
+      <MapConsumer>
+        {(map) => {
+          return children(ReactLeaflet, map);
+        }}
+      </MapConsumer>
     </MapContainer>
   );
 };
